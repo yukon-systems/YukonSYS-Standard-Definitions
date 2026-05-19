@@ -29,8 +29,8 @@ When rules conflict, apply them in this order:
   3. identify constraints
   4. evaluate evidence and options
   5. provide conclusion, trade-offs, and residual risks
-- Do not refer to yourself as an Ai unless directly relevant to the task.
-- Do not refer to yourself as an 'agent'.
+- Do not refer to yourself as an AI unless directly relevant to the task.
+- Do not refer to yourself as an 'agent' in final or user-facing prose unless operationally relevant.
 - Do not refer to request origins as the 'user'.
 - Do not use emojis unless explicitly requested.
 - Do not use filler, hype, or repeated reassurance in place of substance.
@@ -219,14 +219,14 @@ Required:
 - executive summary
 - engineering summary
 - methodology or evaluation basis if non-trivial
-- comparison table(s): priorty-based ordering, sub-sort on alphanumeric
+- comparison table(s): priority-based ordering, sub-sort on alphanumeric
 - references use minimal notation in main content
 - risks and trade-offs for decision trees
 - weighted decision matrix
 
 Optional:
 - Appendix A: glossary of acronyms and technical terminology
-- Appendix B: bibliography with bibtext style references
+- Appendix B: bibliography with BibTeX style references
 - Appendix C: JSON summary of content for machine-readable export
 - Appendix D: shortlist recommendation
 
@@ -240,8 +240,8 @@ Required:
 - 4) declarative docstrings where appropriate
 - 5) assumptions and dependencies when relevant
 - 6) pre-processing validation to ensure required tool(s), script(s), or dependency requirements are available
-- 7) do not proceed unless all requirements from (6) are available
-- 8) if requirements are unmet, inform the user what is needed to proceed
+- 7) do not proceed with execution steps that depend on missing requirements
+- 8) if requirements are unmet, continue with safe read-only inspection or fallback work when useful, and state what is still needed
 
 Optional:
 - file tree
@@ -281,7 +281,7 @@ Optional:
   - self-describing values
   - explicit units where relevant
   - stable key naming
-  - validation passing via 'jq' command
+  - validation passing via `jq` command
 - Do not place comments inside JSON unless JSONC is explicitly requested.
 - For research and comparative analysis, place the JSON summary at the end of the response unless another structure is requested.
 
@@ -293,6 +293,27 @@ Optional:
 - Error handling should be present when failure is plausible.
 - Validate inputs where appropriate.
 
-## 10. Workflows, Skills Context Budget, Auto-Pilot Mode
-- If a request involves a workflow of actions but does not explicitly state which workflow to use, provide the user with available workflow options before proceeding.
+
+## 10. Git, Repository, and Path Hygiene
+
+### 10.1 Git and Commit Safety
+- Before commit or push claims, inspect `git status --short --branch` and run the smallest validation that proves the changed artifact is sane.
+- Commit messages should be concise decision records when repository policy requires them. Prefer trailers such as `Constraint:`, `Rejected:`, `Confidence:`, `Scope-risk:`, `Directive:`, `Tested:`, and `Not-tested:` when they add useful future context.
+- Do not rewrite shared history, delete branches, force-push, or run destructive migration commands without explicit approval unless a repository-specific workflow already grants that authority.
+
+### 10.2 Git LFS
+- For repositories that use Git LFS, treat LFS policy as a pre-push quality gate.
+- Before pushing to `origin`, ensure `git-lfs` is installed, LFS filters are enabled, and local `lfs.<origin-lfs-url>.locksverify` is `true` when the approved host supports LFS locking.
+- If `scripts/bootstrap_git_lfs_policy.sh` exists, run it once per clone before the first push.
+- If `scripts/validate_git_lfs_policy.py` exists, run `python3 scripts/validate_git_lfs_policy.py --remote-name origin` before claiming push readiness.
+- If `policy/git-lfs/gitattributes.master` exists, keep the repository root `.gitattributes` byte-for-byte identical to that master file.
+- Do not run `git lfs migrate import` on shared history without explicit coordination. First run `git lfs migrate info --everything --fixup`, document the migration window, validate with `git lfs fsck`, and force-push only when approved.
+
+### 10.3 Path Hygiene
+- In repository documents, configs, scripts, and generated artifacts, prefer repository-relative paths.
+- Do not hard-code home directories, host-specific absolute paths, or personal workspace paths unless the task explicitly requires a host-local operational path.
+- When an absolute path is required for a host-local operation, keep it out of portable repo documentation unless it is clearly labeled as host-local evidence.
+
+## 11. Workflows, Skills Context Budget, Auto-Pilot Mode
+- If a request involves a workflow of actions but does not explicitly state which workflow to use, choose the lightest suitable workflow and proceed. Present options only when workflow choice materially changes risk, cost, or output.
 - If skill usage emits a "Warning: Exceeded skills context budget" message, stop processing and inform the user with a recommendation to resolve the issue.

@@ -254,6 +254,36 @@ Avoid:
 - omitted imports or dependencies unless intentional and clearly labeled
 - placeholder values unless clearly marked as placeholders
 
+### 7.4.1 Language-Specific Standards Contract
+Before creating or modifying source code, scripts, tests, or configuration
+helpers, identify the implementation language and consult the corresponding
+language standard under:
+
+```text
+structs/langsys/<interpreter-language-name>/
+```
+
+Examples:
+- Python: `structs/langsys/python/`
+- POSIX shell: `structs/langsys/sh/`
+- Bash: `structs/langsys/bash/`
+- JavaScript: `structs/langsys/js/`
+- TypeScript: `structs/langsys/ts/`
+
+Rules:
+- Apply the language-specific standard before generating code.
+- If the language directory exists, treat its `AGENTS.md` as binding guidance
+  for formatting, naming, typing, tests, validation, dependency handling, and
+  security posture.
+- If a legacy alias exists, prefer the full interpreter-language directory name
+  when adding new standards. For Python, prefer `python/` over `py/`.
+- If no language directory exists yet, follow the closest established project
+  style and add only minimal language assumptions in the generated artifact.
+- Never override explicit repository-local tooling such as `pyproject.toml`,
+  `.pre-commit-config.yaml`, `ruff.toml`, `mypy.ini`, `pytest.ini`, or
+  language-specific CI policy. Repository-local tooling is the executable
+  source of truth; language standards define default generation behavior.
+
 ### 7.5 Document and Artifact Contract
 Use for markdown, reports, templates, and deliverable-style outputs.
 

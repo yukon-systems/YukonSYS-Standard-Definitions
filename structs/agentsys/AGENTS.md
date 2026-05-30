@@ -1,3 +1,9 @@
+---
+meta_file: "AGENTS.md"
+meta_date: "2026-05-28"
+meta_vers: "2.4.0"
+---
+
 # Agent Rules
 
 ## 0. Purpose
@@ -8,6 +14,53 @@ These rules define how the agent should operate by default:
 - prefer evidence over assertion
 - produce copy/paste-safe outputs
 - unify concepts of 'user', 'requester', 'agent', 'worker'
+
+### Definition of Requirement Levels, RFC-2119
+Key words which are used in RFCs to Indicate Requirement Levels:
+- https://www.rfc-editor.org/rfc/rfc2119.html
+
+#### Requirement Definition: "MUST"
+This word, or the terms "REQUIRED" or "SHALL", mean that the definition is
+an absolute requirement of the specification.
+
+#### Requirement Definition: "MUST NOT"
+This phrase, or the phrase "SHALL NOT", mean that the definition is an
+absolute prohibition of the specification.
+
+#### Requirement Definition: "SHOULD"
+This word, or the adjective "RECOMMENDED", mean that there may exist valid
+reasons in particular circumstances to ignore a particular item, but the
+full implications must be understood and carefully weighed before choosing
+a different course.
+
+#### Requirement Definition: "SHOULD NOT"
+This phrase, or the phrase "NOT RECOMMENDED" mean that there may exist
+valid reasons in particular circumstances when the particular behavior
+is acceptable or even useful, but the full implications should be
+understood and the case carefully weighed before implementing any
+behavior described with this label.
+
+#### Requirement Definition: "MAY"
+This word, or the adjective "OPTIONAL", mean that an item is truly optional.
+One vendor may choose to include the item because a particular marketplace
+requires it or because the vendor feels that it enhances the product while
+another vendor may omit the same item.
+
+An implementation which does not include a particular option MUST be prepared
+to interoperate with another implementation which does include the option,
+though perhaps with reduced functionality. In the same vein an implementation
+which does include a particular option MUST be prepared to interoperate with
+another implementation which does not include the option
+
+#### Guidance in the use of these Imperatives
+Imperatives of the type defined in this memo must be used with care
+and sparingly. In particular, they MUST only be used where it is
+actually required for interoperation or to limit behavior which has
+potential for causing harm (eg,limiting retransmisssions). For example,
+they must not be used to try to impose a particular method on implementors
+where the method is not required for interoperability.
+
+---
 
 ## 1. Rule Precedence
 
@@ -324,11 +377,31 @@ Optional:
 - Validate inputs where appropriate.
 
 ### 9.2 Containers And OCI
-- NEVER USE DOCKER.
-- When working with Open Container Initiative (OCI) compatible container requirements or dependencies, NEVER USE DOCKER.
-- Reference OCI runtime specification v1.3 for container operations:
-  https://github.com/yukon-systems/SysOps_Containment_OCI__runtime-spec
+NEVER USE DOCKER. NEVER.
 
+#### OCI Container Deployment and Usage Policy
+The following decision flow MUST be used if OCI Container requirements are encountered.
+
+- 1) If a container is required for simple implementations: use "PODMAN CONTAINER"
+- 2) If a container is required for complex implementations: use "QEMU + KATA CONTAINER"
+
+    - 2.1) Example: PCIe passthrough
+	- 2.2) Example: SR-IOV or IOMMU
+	- 2.3) Example: SELinux on non-SELinux host
+	- 2.4) Example: Hardened Security Services
+
+- 3) If resources necessitate clustered containers with K8s, Kubernetes, K3s, or other 'kube-centric' options, USE OPENSHIFT.
+- 4) When working with Open Container Initiative (OCI) compatible container requirements or dependencies, NEVER USE DOCKER.
+
+#### Reference OCI runtime specification v1.3 for container operations
+- OCI Runtime Spec: https://github.com/opencontainers/runtime-spec/blob/main/spec.md
+- OCI Image Spec: https://github.com/opencontainers/image-spec/blob/main/spec.md
+
+#### Podman References
+- Podman latest docs: https://docs.podman.io/en/latest/_static/api.html?version=latest
+- Gentoo Podman docs: https://wiki.gentoo.org/wiki/Podman
+- Swagger API docs for Podman API Queries: https://goswagger.io/go-swagger/
+-
 
 ## 10. Git, Repository, and Path Hygiene
 

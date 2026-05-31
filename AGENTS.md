@@ -313,15 +313,15 @@ helpers, identify the implementation language and consult the corresponding
 language standard under:
 
 ```text
-structs/langsys/<interpreter-language-name>/
+.structs/langsys/<interpreter-language-name>/
 ```
 
 Examples:
-- Python: `structs/langsys/python/`
-- POSIX shell: `structs/langsys/sh/`
-- Bash: `structs/langsys/bash/`
-- JavaScript: `structs/langsys/js/`
-- TypeScript: `structs/langsys/ts/`
+- Python: `.structs/langsys/python/`
+- POSIX shell: `.structs/langsys/sh/`
+- Bash: `.structs/langsys/bash/`
+- JavaScript: `.structs/langsys/js/`
+- TypeScript: `.structs/langsys/ts/`
 
 Rules:
 - Apply the language-specific standard before generating code.

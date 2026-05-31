@@ -42,6 +42,7 @@ required_paths=(
   .structs/opersys/git/labels/core-labels.md
   .structs/opersys/git/conventional-commits/standard.md
   .structs/specsys/README.SPEC.md
+  .structs/specsys/SEMVER.SPEC.md
 )
 
 for path in "${required_paths[@]}"; do

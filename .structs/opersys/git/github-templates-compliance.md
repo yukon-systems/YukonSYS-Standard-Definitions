@@ -14,8 +14,17 @@ The standard has two layers:
 
 - GitHub-consumed files under `.github/ISSUE_TEMPLATE/` and
   `.github/PULL_REQUEST_TEMPLATE/`.
-- Reusable source definitions under `structs/` for labels, commit style,
+- Reusable source definitions under `.structs/` for labels, commit style,
   template metadata, and future wiki/SRE/ITIL/runbook families.
+
+## Repository Creation Baseline
+
+New YukonSYS repositories MUST be created from the
+`yukon-systems/YukonSYS-Standard-Definitions` template repository so the
+`.github/`, `.structs/`, `AGENTS.md`, security, coding-standard, and agentic
+operation baselines are present before domain-specific work begins. See
+`.structs/opersys/git/repository-template-policy.md` for creation commands,
+retrofit rules, exceptions, and verification.
 
 ## Operating Profile
 
@@ -92,7 +101,7 @@ Required baseline issue forms:
 
 Issue forms should use controlled labels and required fields rather than
 free-form issue bodies. Repositories consuming these forms should install the
-core label taxonomy from `structs/opersys/git/labels/core-labels.md`.
+core label taxonomy from `.structs/opersys/git/labels/core-labels.md`.
 
 ## Many-Forge And Shared Workloads
 
@@ -110,7 +119,7 @@ When multiple Forge workers or other agents are operating in parallel:
 
 ## Template Metadata Contract
 
-Reusable templates under `structs/` should include metadata that can be parsed
+Reusable templates under `.structs/` should include metadata that can be parsed
 or indexed later:
 
 ```yaml
@@ -146,13 +155,13 @@ Minimum label families:
 - `risk/*`
 - `area/*`
 
-See `structs/opersys/git/labels/core-labels.md`.
+See `.structs/opersys/git/labels/core-labels.md`.
 
 ## Commit Messages
 
 Use Conventional Commits for automation-friendly commit messages unless a repo
 has a stricter local policy. See
-`structs/opersys/git/conventional-commits/standard.md`.
+`.structs/opersys/git/conventional-commits/standard.md`.
 
 ## Source Basis
 
@@ -164,5 +173,5 @@ has a stricter local policy. See
 - OWASP ASVS and OpenAPI for application/API review context.
 
 Future expansion should add SRE, ITIL, wiki, runbook, secure SDLC, hardware,
-and public SITREP template families under `structs/opersys/` and
-`structs/hwsys/` without weakening the GitHub baseline defined here.
+and public SITREP template families under `.structs/opersys/` and
+`.structs/hwsys/` without weakening the GitHub baseline defined here.

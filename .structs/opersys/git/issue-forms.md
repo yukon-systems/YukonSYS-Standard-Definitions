@@ -25,4 +25,4 @@ repositories.
 - Separate verified evidence from assumptions.
 - Use the repository private security disclosure path when public discussion
   would expose exploit-ready detail.
-- Keep labels aligned with `structs/opersys/git/labels/core-labels.md`.
+- Keep labels aligned with `.structs/opersys/git/labels/core-labels.md`.

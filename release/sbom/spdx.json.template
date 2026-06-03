@@ -1,0 +1,12 @@
+{
+  "spdxVersion": "SPDX-3.0",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "REPLACE-ME",
+  "creationInfo": {
+    "created": "YYYY-MM-DDTHH:MM:SSZ",
+    "creators": [
+      "Tool: REPLACE-ME"
+    ]
+  }
+}

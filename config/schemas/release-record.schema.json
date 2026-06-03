@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "commit",
+    "artifact_digest",
+    "sbom",
+    "provenance",
+    "toolchain",
+    "dependency_locks",
+    "configuration_fingerprint",
+    "tests",
+    "deployment_strategy",
+    "rollback_evidence",
+    "approvals"
+  ],
+  "properties": {
+    "commit": {
+      "minLength": 1
+    },
+    "artifact_digest": {
+      "minLength": 1
+    },
+    "sbom": {
+      "minLength": 1
+    },
+    "provenance": {
+      "minLength": 1
+    },
+    "toolchain": {
+      "minLength": 1
+    },
+    "dependency_locks": {
+      "minLength": 1
+    },
+    "configuration_fingerprint": {
+      "minLength": 1
+    },
+    "tests": {
+      "minLength": 1
+    },
+    "deployment_strategy": {
+      "minLength": 1
+    },
+    "rollback_evidence": {
+      "minLength": 1
+    },
+    "approvals": {
+      "minLength": 1
+    }
+  }
+}

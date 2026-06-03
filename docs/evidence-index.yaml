@@ -1,0 +1,43 @@
+repository:
+  name: YukonSYS-Standard-Definitions
+  default_branch: master
+  owner_role: Standards Owner
+  classification: internal
+records:
+  adr: []
+  ddn: []
+  ccr: []
+  per: []
+  release_records: []
+  exceptions: []
+gates:
+  code_review:
+    required: true
+    status: todo
+    evidence_uri: TODO
+  ci_lint:
+    required: true
+    status: todo
+    evidence_uri: TODO
+  unit_tests:
+    required: true
+    status: todo
+    evidence_uri: TODO
+  contract_tests:
+    required: true
+    status: todo
+    evidence_uri: TODO
+  compatibility_tests:
+    required: true
+    status: todo
+    evidence_uri: TODO
+  performance_burn_in:
+    required: conditional
+    status: todo
+    evidence_uri: TODO
+release:
+  sbom_uri: TODO
+  provenance_uri: TODO
+  artifact_digest: TODO
+  rollback_evidence_uri: TODO
+exceptions: []

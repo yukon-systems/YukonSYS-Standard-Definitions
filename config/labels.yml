@@ -1,0 +1,40 @@
+labels:
+  - name: type/bug
+    color: d73a4a
+    description: Defect or reproducible incorrect behavior
+  - name: type/feature
+    color: a2eeef
+    description: Additive feature request
+  - name: type/task
+    color: cfd3d7
+    description: Bounded task
+  - name: type/incident
+    color: b60205
+    description: Service-impacting incident
+  - name: type/problem
+    color: fbca04
+    description: Recurring incident or unknown root cause
+  - name: type/change
+    color: 5319e7
+    description: Change request
+  - name: type/security
+    color: ee0701
+    description: Security finding or security-sensitive work
+  - name: state/needs-triage
+    color: fef2c0
+    description: Needs triage
+  - name: state/needs-approval
+    color: fef2c0
+    description: Needs approval
+  - name: priority/p0
+    color: b60205
+    description: Critical priority
+  - name: priority/p1
+    color: d93f0b
+    description: High priority
+  - name: priority/p2
+    color: fbca04
+    description: Medium priority
+  - name: priority/p3
+    color: 0e8a16
+    description: Low priority

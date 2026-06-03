@@ -1,0 +1,17 @@
+release_id: REL-YYYYMMDD-0001-example
+commit: TODO
+artifact_digest: sha256:TODO
+sbom:
+  spdx: release/sbom/spdx-REL-YYYYMMDD-0001.json
+  cyclonedx: release/sbom/bom-REL-YYYYMMDD-0001.json
+provenance: release/provenance/slsa-REL-YYYYMMDD-0001.intoto.jsonl
+toolchain:
+  python: TODO
+  clang: TODO
+  erlang_otp: TODO
+dependency_locks: []
+configuration_fingerprint: sha256:TODO
+tests: []
+deployment_strategy: TODO
+rollback_evidence: TODO
+approvals: []

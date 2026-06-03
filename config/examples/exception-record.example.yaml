@@ -1,0 +1,16 @@
+exception_id: EXC-YYYYMMDD-0001-example
+owner: name@example.invalid
+affected_control: CRMR-ENG-POL-001 Section 13
+reason: Temporary vendor tooling gap for read-only audit evidence export.
+scope:
+  repositories:
+    - YukonSYS-Standard-Definitions
+  environments:
+    - staging
+compensating_control: Manual export with two-person review and checksum capture.
+expiry_date: 2026-09-30
+required_remediation: Automate evidence export and link validator output.
+approvals:
+  security: TODO
+  operations: TODO
+  architecture: TODO

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "public_interface_affected",
+    "change_class",
+    "compatibility_tests",
+    "deprecation_start",
+    "n_cycle_removal_target",
+    "migration_guide",
+    "adoption_telemetry",
+    "removal_approval"
+  ],
+  "properties": {
+    "public_interface_affected": {
+      "minLength": 1
+    },
+    "change_class": {
+      "minLength": 1
+    },
+    "compatibility_tests": {
+      "minLength": 1
+    },
+    "deprecation_start": {
+      "minLength": 1
+    },
+    "n_cycle_removal_target": {
+      "minLength": 1
+    },
+    "migration_guide": {
+      "minLength": 1
+    },
+    "adoption_telemetry": {
+      "minLength": 1
+    },
+    "removal_approval": {
+      "minLength": 1
+    }
+  }
+}

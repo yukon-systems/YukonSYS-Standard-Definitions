@@ -1,2 +1,3 @@
-Scanned 78 markdown files under ./.structs
 PASS template baseline validation
+PASS evidence index validation
+PASS yaml/json template validation

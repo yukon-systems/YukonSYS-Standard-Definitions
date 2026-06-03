@@ -1,0 +1,82 @@
+name: "Feature Request"
+description: "Request an additive feature or enhancement."
+title: "[Feature]: "
+labels: ["type/feature", "state/needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Complete all required fields. Do not include secrets, private keys, tokens, customer data, or production-only values.
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: "Required for policy evidence and triage."
+      placeholder: |
+        Provide specific, verifiable details and links to evidence.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: "Scope / Affected Area"
+      description: "Required for policy evidence and triage."
+      placeholder: |
+        Provide specific, verifiable details and links to evidence.
+      render: markdown
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: "Risk / Priority"
+      description: "Required for policy evidence and triage."
+      options:
+        - p0-critical
+        - p1-high
+        - p2-medium
+        - p3-low
+      default: 2
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "Evidence Links"
+      description: "Required for policy evidence and triage."
+      placeholder: |
+        Provide specific, verifiable details and links to evidence.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: "Security / Privacy Impact"
+      description: "Required for policy evidence and triage."
+      placeholder: |
+        Provide specific, verifiable details and links to evidence.
+      render: markdown
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: "Submission Confirmation"
+      description: "Required for policy evidence and triage."
+      options:
+        - label: I confirm this issue contains no secrets or production-only values.
+          required: true
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "Acceptance Criteria"
+      description: "Required for policy evidence and triage."
+      placeholder: |
+        Provide specific, verifiable details and links to evidence.
+      render: markdown
+    validations:
+      required: true

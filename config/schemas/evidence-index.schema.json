@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "repository",
+    "records",
+    "gates"
+  ],
+  "properties": {
+    "repository": {
+      "minLength": 1
+    },
+    "records": {
+      "minLength": 1
+    },
+    "gates": {
+      "minLength": 1
+    }
+  }
+}

@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Security disclosure
+  - name: Security vulnerability private intake
     url: https://github.com/yukon-systems/YukonSYS-Standard-Definitions/security/policy
-    about: Use the repository security policy for private vulnerability reports when available.
-  - name: YukonSYS standards catalog
-    url: https://github.com/yukon-systems/YukonSYS-Standard-Definitions
-    about: Review the standards catalog before requesting a new template family.
+    about: Use the private security reporting path for vulnerabilities, credentials, or exploit-sensitive detail.
+  - name: Standards reference index
+    url: https://github.com/yukon-systems/YukonSYS-Standard-Definitions/blob/master/references/REFERENCE_INDEX.md
+    about: Review source basis and template placement rules before opening a standards issue.

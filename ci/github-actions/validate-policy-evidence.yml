@@ -1,0 +1,15 @@
+name: Validate policy evidence
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-policy-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate template baseline
+        run: ./scripts/validate-template-baseline.sh .
+      - name: Validate evidence index
+        run: python3 tools/validate-evidence-index.py docs/evidence-index.yaml

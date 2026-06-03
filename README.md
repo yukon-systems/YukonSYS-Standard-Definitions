@@ -1,64 +1,96 @@
-# Critical Resource Engineering Policy Expansion Repository
+# YukonSYS Standards Template Overlay
 
 <a id="toc"></a>
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Repository Layout](#repository-layout)
-- [Agent Entry Points](#agent-entry-points)
-- [Subject Catalogs](#subject-catalogs)
+- [How to Apply](#how-to-apply)
+- [Appendix A Minimum Repository Structure](#appendix-a-minimum-repository-structure)
+- [Required Record Templates](#required-record-templates)
+- [GitHub Operational Templates](#github-operational-templates)
 - [Validation](#validation)
-- [Change Control](#change-control)
+- [Source Basis](#source-basis)
 
 <a id="purpose"></a>
 ## Purpose
 
-This repository expansion adds routable standards for agentic workers supporting Critical Resource Management, Handling, and Response operations. It extends the baseline engineering policy with domain-specific operational rules for languages, operating systems, hardware, networking, infrastructure, validation, and compliance evidence.
+This overlay supplies the repository skeleton and required templates for Critical Resource Management, Handling, and Response engineering operations. It is intended to be extracted at the root of `yukon-systems/YukonSYS-Standard-Definitions` or any repository adopting `CRMR-ENG-POL-001`.
 
-<a id="repository-layout"></a>
-## Repository Layout
+<a id="how-to-apply"></a>
+## How to Apply
 
-```text
-.structs/
-  agentsys/   agent entry, routing, and per-agent augment controls
-  langsys/    language and scripting standards
-  opersys/    operating-system operator-language and command standards
-  hwsys/      server, board, network, and infrastructure hardware standards
-  specsys/    specification, evidence, and compliance definitions
-scripts/      validation tooling
-policy/       original generated policy artifacts
-references/   uploaded compliance/source notes
+```sh
+# from repository root
+tar -xzf YukonSYS-Standard-Definitions_template_overlay.tar.gz
+# or
+unzip YukonSYS-Standard-Definitions_template_overlay.zip
+
+# validate
+./scripts/validate-template-baseline.sh .
+python3 tools/validate-evidence-index.py docs/evidence-index.yaml
 ```
 
-<a id="agent-entry-points"></a>
-## Agent Entry Points
+Do not overwrite existing completed records without review. If a file already exists, compare and merge the template additions.
 
-- `.structs/agentsys/AGENTS.md`: populated from the repository root `AGENTS.md` baseline.
-- `.structs/agentsys/AGENT_RULES.md`: workflow routing and stop conditions by subject area.
-- `.structs/agentsys/AGENT_AUGMENTS.md`: per-agent control overlays for Codex, Web, OpenCode, Ollama, HuggingFace, webhook intake, and named manual agents.
+<a id="appendix-a-minimum-repository-structure"></a>
+## Appendix A Minimum Repository Structure
 
-<a id="subject-catalogs"></a>
-## Subject Catalogs
+```text
+/
+  AGENTS.md
+  README.md
+  docs/
+    adr/
+    ddn/
+    ccr/
+    per/
+    runbooks/
+  config/
+    schemas/
+    examples/
+  templates/
+  src/
+  tests/
+    unit/
+    integration/
+    contract/
+    compatibility/
+    performance/
+  ci/
+  release/
+    sbom/
+    provenance/
+    records/
+  tools/
+```
 
-Use these catalogs before producing or changing code, scripts, runbooks, infrastructure changes, or operational recommendations:
+This overlay also adds `.github/`, `.structs/`, `references/`, `docs/exceptions/`, `docs/test-reports/`, and other support directories required for GitHub intake, agent routing, and compliance evidence.
 
-- `.structs/langsys/INDEX.md`
-- `.structs/opersys/INDEX.md`
-- `.structs/hwsys/INDEX.md`
-- `.structs/specsys/INDEX.md`
+<a id="required-record-templates"></a>
+## Required Record Templates
+
+- `docs/adr/ADR-TEMPLATE.md` and `templates/ADR.md`
+- `docs/ddn/DDN-TEMPLATE.md` and `templates/DDN.md`
+- `docs/ccr/CCR-TEMPLATE.md` and `templates/CCR.md`
+- `docs/per/PER-TEMPLATE.md` and `templates/PER.md`
+- `release/records/RELEASE-RECORD-TEMPLATE.md` and `templates/Release_Record.md`
+- `docs/exceptions/EXCEPTION-TEMPLATE.md` and `templates/Exception_Record.md`
+- `docs/evidence-index.md` and `docs/evidence-index.yaml`
+
+<a id="github-operational-templates"></a>
+## GitHub Operational Templates
+
+- Issue forms: `.github/ISSUE_TEMPLATE/*.yml`
+- Pull request templates: `.github/PULL_REQUEST_TEMPLATE/*.md`
+- Community files: `CONTRIBUTING.md`, `SECURITY.md`, `SUPPORT.md`, `GOVERNANCE.md`
+- CI sample: `ci/github-actions/validate-policy-evidence.yml`
 
 <a id="validation"></a>
 ## Validation
 
-Run the baseline validator before submitting changes:
+`./scripts/validate-template-baseline.sh .` checks the required directory layout, required record templates, GitHub templates, and evidence index placeholders.
 
-```sh
-scripts/validate-template-baseline.sh
-```
+<a id="source-basis"></a>
+## Source Basis
 
-The validator checks required metadata and policy sections across `.structs/**/*.md`.
-
-<a id="change-control"></a>
-## Change Control
-
-Normative changes require a Compatibility Change Record when they alter public interface, ABI/API, command syntax, evidence requirements, lifecycle gates, rollback behavior, or agent authority.
+See `references/REFERENCE_INDEX.md` for all external and internal source IDs used to derive these templates.

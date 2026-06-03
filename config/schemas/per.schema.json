@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "workload",
+    "tool_versions",
+    "environment",
+    "baseline",
+    "target",
+    "results",
+    "saturation_points",
+    "regression_explanation",
+    "approval"
+  ],
+  "properties": {
+    "workload": {
+      "minLength": 1
+    },
+    "tool_versions": {
+      "minLength": 1
+    },
+    "environment": {
+      "minLength": 1
+    },
+    "baseline": {
+      "minLength": 1
+    },
+    "target": {
+      "minLength": 1
+    },
+    "results": {
+      "minLength": 1
+    },
+    "saturation_points": {
+      "minLength": 1
+    },
+    "regression_explanation": {
+      "minLength": 1
+    },
+    "approval": {
+      "minLength": 1
+    }
+  }
+}

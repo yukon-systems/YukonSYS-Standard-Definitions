@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "requested_change",
+    "original_scope",
+    "changed_scope",
+    "affected_code_and_contracts",
+    "retrofit_options",
+    "migration_plan",
+    "backout_plan",
+    "estimated_time",
+    "actual_time",
+    "variance",
+    "approvals"
+  ],
+  "properties": {
+    "requested_change": {
+      "minLength": 1
+    },
+    "original_scope": {
+      "minLength": 1
+    },
+    "changed_scope": {
+      "minLength": 1
+    },
+    "affected_code_and_contracts": {
+      "minLength": 1
+    },
+    "retrofit_options": {
+      "minLength": 1
+    },
+    "migration_plan": {
+      "minLength": 1
+    },
+    "backout_plan": {
+      "minLength": 1
+    },
+    "estimated_time": {
+      "minLength": 1
+    },
+    "actual_time": {
+      "minLength": 1
+    },
+    "variance": {
+      "minLength": 1
+    },
+    "approvals": {
+      "minLength": 1
+    }
+  }
+}

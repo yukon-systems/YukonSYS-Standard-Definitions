@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "title",
+    "status",
+    "context",
+    "decision",
+    "owners"
+  ],
+  "properties": {
+    "title": {
+      "minLength": 1
+    },
+    "status": {
+      "minLength": 1
+    },
+    "context": {
+      "minLength": 1
+    },
+    "decision": {
+      "minLength": 1
+    },
+    "owners": {
+      "minLength": 1
+    }
+  }
+}

@@ -1,131 +1,59 @@
----
-template_id: YS-AGENT-RULES-001
-template_family: agentsys
-title: Agent Routing and Subject-Matter Rules
-version: 0.1.0
-status: draft
-owner_role: platform-engineering
-applies_to:
-  - all-agentic-workers
-source_basis:
-  - root AGENTS.md
-  - references/github-templates-compliance.md
-classification: internal
-required_fields:
-  - purpose
-  - routing
-  - stop_conditions
-  - evidence_required
-validation_rules:
-  - agents must read the routed subject file before action
-  - production-impacting commands require explicit human approval
-review_cadence: 90 days
-last_reviewed: 2026-06-03
-change_control: CCR required for authority or routing changes
----
-
-# Agent Routing and Subject-Matter Rules
+# Agent Rules
 
 <a id="toc"></a>
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Global Routing Rule](#global-routing-rule)
-- [Workflow Routing Matrix](#workflow-routing-matrix)
-- [Action Sequence](#action-sequence)
+- [Repository Intake](#repository-intake)
+- [Routing Table](#routing-table)
+- [Required Records](#required-records)
 - [Stop Conditions](#stop-conditions)
-- [Evidence Required](#evidence-required)
-- [Validation](#validation)
-- [Rollback or Backout](#rollback-or-backout)
-- [References](#references)
-- [Version History](#version-history)
 
 <a id="purpose"></a>
 ## Purpose
 
-Direct agentic workers to the correct standards catalog before they propose, generate, validate, or modify language code, OS procedures, hardware procedures, networking procedures, infrastructure controls, templates, or compliance evidence.
+Route agentic workers to the correct standards, templates, and evidence files. These rules supplement root `AGENTS.md` and do not weaken it.
 
-<a id="global-routing-rule"></a>
-## Global Routing Rule
+<a id="repository-intake"></a>
+## Repository Intake
 
-Agents must resolve the workflow type before acting:
+Agents MUST read the following before editing policy-sensitive content:
 
-1. **Language, scripting, SQL, markup, diagrams, RAG, APIs, validation, return codes, or exception handling** -> `.structs/langsys/`.
-2. **Operating-system administration or OS-specific operator language** -> `.structs/opersys/`.
-3. **Server hardware, board hardware, network appliances, interconnects, BMCs, firmware, serial, or remote-management tooling** -> `.structs/hwsys/`.
-4. **Specification definitions, security/compliance controls, evidence schemas, source basis, or baseline validation** -> `.structs/specsys/`.
-5. **Agent authority, operating limits, named-agent responsibilities, webhook intake controls, or model-specific behaviors** -> `.structs/agentsys/`.
+1. `AGENTS.md`
+2. `.structs/agentsys/AGENT_RULES.md`
+3. `.structs/agentsys/AGENT_AUGMENTS.md`
+4. `references/REFERENCE_INDEX.md`
+5. `docs/evidence-index.md`
+6. The relevant template under `templates/`, `docs/`, `.github/`, or `.structs/`.
 
-When a task spans multiple categories, read every applicable file and use the strictest control.
+<a id="routing-table"></a>
+## Routing Table
 
-<a id="workflow-routing-matrix"></a>
-## Workflow Routing Matrix
-
-| Workflow Type | Required First Read | Additional Reads |
+| Workflow Type | Required Directory | Required Template / Evidence |
 |---|---|---|
-| New script or CLI | `.structs/langsys/validation/STANDARD.md` | Shell, Bash, Python, return-code, and exception standards as applicable |
-| OS runbook | `.structs/opersys/INDEX.md` | Target OS `AGENTS.md`; relevant hwsys infrastructure file |
-| SQL migration/procedure | `.structs/langsys/sql/ansi-sql.md` | Target DB standard and CCR policy |
-| Hardware maintenance | `.structs/hwsys/INDEX.md` | Target infrastructure/hardware file and OS serial/BMC file |
-| Network appliance change | `.structs/hwsys/networking/` | Security controls and rollback plan |
-| RAG data processing | `.structs/langsys/rag-data-processing/STANDARD.md` | API token/header and search API standards |
-| Documentation/template change | `.structs/langsys/markup/STANDARD.md` | Specsys evidence and validation files |
-| Agent behavior change | `.structs/agentsys/AGENT_AUGMENTS.md` | This file and root AGENTS.md |
+| Architecture decision | `docs/adr/` | `docs/adr/ADR-TEMPLATE.md` |
+| Scope deviation | `docs/ddn/` | `docs/ddn/DDN-TEMPLATE.md` |
+| Compatibility change | `docs/ccr/` | `docs/ccr/CCR-TEMPLATE.md` |
+| Performance burn-in | `docs/per/` | `docs/per/PER-TEMPLATE.md` |
+| Release | `release/records/` | `release/records/RELEASE-RECORD-TEMPLATE.md` |
+| Exception | `docs/exceptions/` | `docs/exceptions/EXCEPTION-TEMPLATE.md` |
+| GitHub issue intake | `.github/ISSUE_TEMPLATE/` | matching `*.yml` form |
+| GitHub pull request | `.github/PULL_REQUEST_TEMPLATE/` | matching `*.md` template |
+| Evidence index | `docs/` | `docs/evidence-index.md`, `docs/evidence-index.yaml` |
+| CI/CD gate | `ci/` | `ci/workflow-gates.md` |
+| SBOM | `release/sbom/` | `bom.json.template`, `spdx.json.template` |
+| Provenance | `release/provenance/` | `slsa-provenance.intoto.jsonl.template` |
+| Language standards | `.structs/langsys/` | relevant `STANDARD.md` |
+| OS operator standards | `.structs/opersys/` | relevant `AGENTS.md` or template |
+| Hardware standards | `.structs/hwsys/` | relevant hardware/runbook file |
+| Specification controls | `.structs/specsys/` | evidence and template files |
 
-<a id="action-sequence"></a>
-## Action Sequence
+<a id="required-records"></a>
+## Required Records
 
-1. Read root `AGENTS.md` and `.structs/agentsys/AGENTS.md`.
-2. Read this routing file.
-3. Read the applicable subject-matter files.
-4. Detect target versions and architecture using read-only commands.
-5. Confirm lifecycle stage and production impact.
-6. Generate a minimal plan with validation and backout.
-7. Execute only authorized changes.
-8. Produce evidence and final response in the required AGENTS.md format.
+Agents MUST create or update ADR/DDN/CCR/PER/Release/Exception records when task scope, public contracts, release behavior, operational behavior, test evidence, exceptions, or production admission criteria change.
 
 <a id="stop-conditions"></a>
 ## Stop Conditions
 
-- The target system, architecture, firmware, OS, service manager, database, or appliance version cannot be verified.
-- The task implies production change without a change ticket or explicit approval.
-- The task requires secrets, tokens, unredacted headers, private keys, or credential material.
-- The task would alter ABI/API/CLI/schema/message contracts without a Compatibility Change Record.
-- The task changes network routing, firewall policy, BMC access, firmware, bootloader variables, kernel parameters, storage layout, or database schema without rollback evidence.
-- The task conflicts with a subject standard or lacks a source basis.
-
-<a id="evidence-required"></a>
-## Evidence Required
-
-- Files read and standards applied.
-- Version/architecture detection output or an explicit statement that detection was not run.
-- Commands proposed or run, with destructive commands clearly labeled.
-- Validation results.
-- Rollback or backout path.
-- Risks, gaps, and required human approvals.
-
-<a id="validation"></a>
-## Validation
-
-- Confirm the selected route maps to at least one subject standard.
-- Confirm every production-impacting action has human approval, rollback evidence, and an applicable lifecycle stage.
-- Confirm agent authority is not expanded by implication.
-
-<a id="rollback-or-backout"></a>
-## Rollback or Backout
-
-- Restore the previous `.structs/agentsys/AGENT_RULES.md` revision.
-- Re-run `scripts/validate-template-baseline.sh`.
-- Record routing changes in CCR evidence if worker authority, stop conditions, or required reads changed.
-
-<a id="references"></a>
-## References
-
-- root `AGENTS.md`
-- `.structs/agentsys/AGENTS.md`
-- `references/github-templates-compliance.md`
-
-<a id="version-history"></a>
-## Version History
-
-- 0.1.0 (2026-06-03): Initial routing layer for expanded standards repository.
+Stop and request human approval when required evidence is missing, a public interface changes, a breaking change is requested, a secret appears, or a task requires production-impacting action not explicitly authorized.

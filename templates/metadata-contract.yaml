@@ -1,0 +1,32 @@
+template_id: REQUIRED_UNIQUE_ID
+template_family: adr|ddn|ccr|per|release|exception|issue|pull_request|runbook|sre|itil|security|api|supply_chain|agent
+record_id_pattern: PREFIX-YYYYMMDD-NNNN-slug
+version: 1.0.0
+status: draft|active|deprecated
+owner_role: REQUIRED
+applies_to:
+  - repository
+  - service
+  - environment
+audience:
+  - engineering
+  - verification
+  - security
+  - operations
+source_basis:
+  - R01
+classification: public|internal|confidential|restricted
+required_fields:
+  - title
+  - owner
+  - scope
+  - evidence
+optional_fields: []
+validation_rules:
+  - no_empty_required_fields
+  - no_open_ended_exceptions
+  - links_resolve
+related_templates: []
+review_cadence: per_release_train_or_quarterly
+last_reviewed: YYYY-MM-DD
+change_control: CCR_REQUIRED_FOR_PUBLIC_CONTRACT_CHANGE

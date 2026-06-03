@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Critical Resource Management, Handling, and Response Engineering Policy</title>
+</head>
+<body>
+<h1>Critical Resource Management, Handling, and Response Engineering Policy</h1>
+<dl>
+<dt>Policy ID</dt><dd>CRMR-ENG-POL-001</dd>
+<dt>Version</dt><dd>1.0.0-draft</dd>
+<dt>Effective date</dt><dd>2026-06-02</dd>
+</dl>
+<h2 id="toc">Table of Contents</h2>
+<ol>
+  <li><a href="#sec-control-header">1. Control Header</a></li>
+  <li><a href="#sec-purpose-scope">2. Purpose and Scope</a></li>
+  <li><a href="#sec-lifecycle-gates">3. Lifecycle Gates</a></li>
+  <li><a href="#sec-configuration-automation">4. Configuration and Template-Driven Automation</a></li>
+  <li><a href="#sec-repeatability-traceability">5. Repeatability, Traceability, and Evidence</a></li>
+  <li><a href="#sec-compatibility-versioning">6. API, ABI, Data-Contract, and Versioning Policy</a></li>
+  <li><a href="#sec-scope-change-control">7. Scope Control and Design Decision Notation</a></li>
+  <li><a href="#sec-language-standards">8. Language Standards Register</a></li>
+  <li><a href="#sec-testing-burn-in">9. Testing, Burn-In, and Verification</a></li>
+  <li><a href="#sec-production-operations">10. Production Operations and Upgrade Discipline</a></li>
+  <li><a href="#sec-security-supply-chain">11. Security and Supply Chain Controls</a></li>
+  <li><a href="#sec-llm-agent-policy">12. LLM Agent Operating Policy</a></li>
+  <li><a href="#sec-audit-enforcement">13. Audit, Enforcement, and Exceptions</a></li>
+  <li><a href="#sec-appendix-a">Appendix A. Minimum Repository Structure</a></li>
+  <li><a href="#sec-appendix-b">Appendix B. Required Record Templates</a></li>
+  <li><a href="#sec-references">References</a></li>
+</ol>
+<section id="sec-control-header">
+<h2>1. Control Header</h2>
+<table border="1">
+<thead><tr><th>Field</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Policy ID</td><td>CRMR-ENG-POL-001</td></tr>
+<tr><td>Title</td><td>Critical Resource Management, Handling, and Response Engineering Policy</td></tr>
+<tr><td>Status</td><td>Draft for organizational adoption</td></tr>
+<tr><td>Version</td><td>1.0.0-draft</td></tr>
+<tr><td>Effective date</td><td>2026-06-02</td></tr>
+<tr><td>Applies to</td><td>All critical-resource services, repositories, automation, build systems, test systems, release systems, production operations, and LLM-agent activity that can affect those systems.</td></tr>
+<tr><td>Normative language</td><td>MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as binding policy terms.</td></tr>
+<tr><td>Reference model</td><td>This policy maps to secure SDLC, supply-chain, language-standard, ABI/API-compatibility, release, and incident-management controls.</td></tr>
+</tbody></table>
+<p>For this policy, &quot;absolute certainty&quot; means a bounded and auditable operating claim: within approved scope, pinned versions, declared operating parameters, and declared environments, the organization MUST be able to reproduce inputs, outputs, internal data flows, internal logic flows, build artifacts, test evidence, and release decisions. Claims outside those boundaries MUST NOT be represented as certified behavior.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-purpose-scope">
+<h2>2. Purpose and Scope</h2>
+<p>The purpose of this policy is to define mandatory engineering controls for Critical Resource Management, Handling, and Response operations across proof-of-concept, development, testing, burn-in, and production operation stages.</p>
+<ul>
+  <li>Reduce operational ambiguity by requiring template-driven automation, declared configuration schemas, version pinning, reproducible build inputs, and evidence-producing test gates.</li>
+  <li>Protect service continuity by requiring compatible API/ABI/data-contract evolution, rolling upgrade readiness, rollback and downgrade paths, and documented deprecation windows.</li>
+  <li>Make all engineering decisions auditable by requiring design decision records, change records, scope-change notices, verification reports, and release evidence.</li>
+  <li>Standardize language-specific rules for Python, Haskell, C/C++ with LLVM/Clang, and Erlang/OTP without preventing future scope extension.</li>
+  <li>Constrain LLM agents to deterministic, reviewable, policy-compliant repository changes through a root AGENTS.md file and optional nested AGENTS.md files.</li>
+</ul>
+<p>This policy applies to human-authored code, generated code, infrastructure code, test harnesses, deployment automation, documentation, and agent-authored changes. A team MAY add stricter local controls, but MUST NOT weaken this policy without a written exception approved by Architecture, Security, Verification, and Operations owners.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-lifecycle-gates">
+<h2>3. Lifecycle Gates</h2>
+<p>Every covered change MUST pass the lifecycle gates below. Each gate MUST leave durable evidence in the repository or release evidence store. A change MUST NOT advance to the next gate with unresolved high-severity verification, security, compatibility, or operational findings.</p>
+<table border="1">
+<thead><tr><th>Gate</th><th>Name</th><th>Required exit evidence</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>Proof of Concept Design and Definitions</td><td>Problem statement; scope and anti-scope; environment matrix; data-flow and logic-flow diagrams; public API/ABI/data-contract inventory; configuration schema; risk register; initial ADRs; test strategy; preliminary rollback model.</td></tr>
+<tr><td>1</td><td>Development of Concept Code</td><td>Code generated or structured from approved templates; no hardcoded variable data; version-pinned toolchains and dependencies; static analysis clean or waived; unit and property tests; documentation updates; reviewer sign-off.</td></tr>
+<tr><td>2</td><td>Testing of Developed Code</td><td>Unit, integration, contract, API/ABI, serialization, migration, platform-matrix, negative-path, and security tests; deterministic test data; traceable pass/fail results; defect triage.</td></tr>
+<tr><td>3</td><td>Burn-In Load, Regression, and Performance Testing</td><td>Load and soak tests; regression comparison to baseline; capacity envelope; SLO/SLA risk analysis; resource exhaustion behavior; upgrade/downgrade rehearsal; backout rehearsal; performance report.</td></tr>
+<tr><td>4</td><td>Operate Production Environments</td><td>Release record; signed artifacts; SBOM; provenance/attestation; runbook; dashboards and alerts; incident response hooks; canary/blue-green/rolling deployment plan; rollback and downgrade evidence; post-release verification.</td></tr>
+</tbody></table>
+<p>Gate evidence MUST include the exact commit, artifact digest, toolchain versions, dependency locks, configuration fingerprint, test command, test environment, reviewer identity, and approval timestamp. Redacted configuration manifests MUST be retained for every production deployment.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-configuration-automation">
+<h2>4. Configuration and Template-Driven Automation</h2>
+<p>Covered systems MUST treat variable data as configuration, not source code. Application and workflow code MUST refuse hardcoded variable data that can change between environments, tenants, regions, credentials, addresses, ports, capacity settings, feature flags, retention windows, model identifiers, hardware topology, or deployment targets.</p>
+<ul>
+  <li>Every executable entrypoint MUST declare its configuration interface: command-line arguments, configuration files, environment variables, secret references, and default values.</li>
+  <li>Configuration precedence MUST be documented. The default precedence is: explicit command-line option, explicit configuration file, approved environment variable, approved secret/config service, then documented immutable default.</li>
+  <li>Secrets SHOULD NOT be passed through command-line arguments. Secret values MUST be redacted in logs, traces, generated manifests, and test output.</li>
+  <li>Configuration schemas MUST be versioned and validated at process startup and CI time. Invalid configuration MUST fail closed with actionable diagnostics.</li>
+  <li>Automation templates MUST emit deterministic outputs for the same template version, input variables, toolchain, and environment descriptor.</li>
+  <li>Every run MUST produce a redacted configuration fingerprint and a template-version fingerprint so that outputs can be reproduced or rejected as drift.</li>
+</ul>
+<p>All templates MUST be source-controlled. Template changes MUST pass the same lifecycle gates as application code because templates define internal logic flows and operational behavior.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-repeatability-traceability">
+<h2>5. Repeatability, Traceability, and Evidence</h2>
+<p>Inputs, outputs, data flows, logic flows, build products, and operational decisions MUST be repeatable and traceable. A team MUST be able to answer which source, template, configuration, dependency, toolchain, test data, and approval produced any deployed artifact.</p>
+<ul>
+  <li>Builds MUST be reproducible to the maximum practical degree. When exact binary reproducibility is not feasible, the non-reproducible fields MUST be identified, bounded, and justified.</li>
+  <li>Dependency resolution MUST use lock files, immutable artifact digests, or equivalent controls. Floating production dependencies are prohibited.</li>
+  <li>Each release MUST include a machine-readable bill of materials using SPDX or CycloneDX and SHOULD include SLSA-compatible provenance for source, build, and artifact lineage.</li>
+  <li>Test fixtures MUST be deterministic. Randomized tests MUST record seeds, data-generation versions, and failure minimization artifacts.</li>
+  <li>Operational telemetry MUST correlate artifact version, configuration fingerprint, runtime environment, and request or job identifier without disclosing sensitive data.</li>
+</ul>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-compatibility-versioning">
+<h2>6. API, ABI, Data-Contract, and Versioning Policy</h2>
+<p>Every public interface MUST have an owner, a version, compatibility tests, deprecation rules, and a documented stability class. Public interfaces include library APIs, C ABIs, Python extension ABIs, Haskell module exports, Erlang message contracts, command-line interfaces, configuration schemas, serialized data formats, network protocols, database schemas, metrics names, log schemas, and automation templates.</p>
+<ul>
+  <li>Backward-compatible additions MAY ship in minor releases when contract tests prove old clients and new clients can coexist.</li>
+  <li>Breaking changes MUST NOT be shipped directly to production. They MUST be introduced behind a compatible alternative, documented as deprecated, migrated through staged releases, and protected by compatibility tests.</li>
+  <li>The default deprecation window is N = 4 minor releases and at least 2 successful production deployment cycles, unless a security or safety exception is approved through a Compatibility Exception Record.</li>
+  <li>Removal MUST require evidence that all in-scope consumers have migrated or that continued support violates an approved security, safety, or regulatory constraint.</li>
+  <li>Upgrade plans MUST support rolling, blue-green, canary, or hot-code mechanisms as appropriate. Full-offline upgrades are prohibited unless explicitly approved as an exception for a bounded maintenance window.</li>
+  <li>Downgrade and rollback behavior MUST be tested for configuration, schema, data, and binary compatibility.</li>
+</ul>
+<p>A change that alters ABI layout, function signatures, exported symbols, serialization tags, message shapes, public module exports, or command-line/configuration semantics MUST include a Compatibility Change Record before merge.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-scope-change-control">
+<h2>7. Scope Control and Design Decision Notation</h2>
+<p>Approved scope is immutable during implementation. If scope must change, development MUST pause for the affected workstream until a Design Decision Notice is accepted. Emergency exceptions MAY proceed only when delaying would create greater operational risk, and MUST be documented retroactively before the next release gate.</p>
+<ul>
+  <li>Architecture Decision Records MUST use the pattern ADR-YYYYMMDD-NNNN-slug and include context, decision, status, alternatives, consequences, references, and review owners.</li>
+  <li>Design Decision Notices MUST use the pattern DDN-YYYYMMDD-NNNN-slug and include requested scope change, affected requirements, affected interfaces, retrofit options, backout plan, migration plan, risk, test impact, documentation impact, estimated implementation time, actual time, variance, and variance explanation.</li>
+  <li>Compatibility Change Records MUST use the pattern CCR-YYYYMMDD-NNNN-slug and include contract affected, compatibility class, deprecation window, migration guidance, telemetry for adoption, tests, and removal conditions.</li>
+  <li>Performance Evidence Reports MUST use the pattern PER-YYYYMMDD-NNNN-slug and include workload definition, baseline, target, environment, observed behavior, saturation points, regression analysis, and approval.</li>
+  <li>All records MUST be linkable from the release record and from code review.</li>
+</ul>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-language-standards">
+<h2>8. Language Standards Register</h2>
+<p>Projects MUST pin language runtimes, compilers, toolchains, package managers, dependency resolvers, formatters, linters, and test tools. The approved baseline versions for this policy are Python 3.14.5, GHC 9.14.1, LLVM/Clang 22.1.7, and Erlang/OTP 29.0.1, subject to local toolchain attestation. When official project documentation for an exact patch version is unavailable, the repository MUST store local evidence such as --version output, release manifest, package digest, container digest, and compiler configuration.</p>
+<table border="1">
+<thead><tr><th>Language area</th><th>Mandatory standards and controls</th><th>Required evidence</th></tr></thead>
+<tbody>
+<tr><td>Python 3.14.5</td><td>PEP 8 style; PEP 257 docstrings; PyPA pyproject.toml metadata; PyPA version specifiers; PEP 387 compatibility rules for public APIs; Python Stable ABI / abi3 for C extensions when cross-version binary compatibility is required; typed interfaces for public packages; deterministic CLI/config parsing.</td><td>pyproject.toml; lock file; formatter/linter/type-check output; API compatibility report; wheel tags; extension ABI declaration; test matrix results.</td></tr>
+<tr><td>Haskell / GHC 9.14.1</td><td>Haskell 2010 for maximum portability unless GHC-specific extensions are explicitly declared; Cabal package metadata; explicit default-language and default-extensions; PVP versioning; public module export lists; FFI boundary documentation; Haddock documentation for public APIs.</td><td>.cabal file; cabal.project.freeze or equivalent; tested-with matrix; PVP compatibility report; Haddock output; API diff; FFI contract tests.</td></tr>
+<tr><td>C / C++ with LLVM/Clang 22.1.7</td><td>Explicit -std value; ISO C and ISO C++ baseline declared per component; LLVM coding standards where applicable; C++ Core Guidelines for safety-critical C++; no non-portable compiler extensions unless gated and tested; warning-clean builds; sanitizers; ABI symbol and layout checks; target triple matrix.</td><td>compile_commands.json; clang --version and llvm-config --version; clang-tidy/clang-format output; sanitizer reports; ABI dump/diff; exported symbol list; target matrix; conformance exceptions.</td></tr>
+<tr><td>Erlang/OTP 29.0.1</td><td>OTP design principles; applications, behaviours, supervision trees, and releases; appup/relup release handling for hot or rolling upgrades; External Term Format rules for term serialization compatibility; Dialyzer and Common Test/EUnit; message contract versioning.</td><td>.app.src; supervisor tree docs; release files; .appup/.relup; Dialyzer PLT/report; Common Test/EUnit results; message schema and migration tests.</td></tr>
+</tbody></table>
+<p>Language-specific exceptions MUST be recorded in the repository exception register with owner, expiry, compensating controls, and approval. &quot;Convenience&quot; is not an acceptable reason for weakening ABI, configuration, portability, or evidence controls.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-testing-burn-in">
+<h2>9. Testing, Burn-In, and Verification</h2>
+<p>Verification MUST cover correctness, compatibility, security, performance, failure behavior, and operability. Testing MUST prove behavior under approved scope and MUST detect accidental expansion of scope.</p>
+<ul>
+  <li>Unit tests MUST cover normal, boundary, negative, and configuration-failure paths.</li>
+  <li>Integration tests MUST prove template outputs, service wiring, message formats, storage migrations, and telemetry contracts.</li>
+  <li>Contract tests MUST run old-client/new-service, new-client/old-service, old-config/new-service, and new-config/old-service combinations when compatibility is claimed.</li>
+  <li>ABI tests MUST compare exported symbols, binary layouts, calling conventions, extension tags, and serialization encodings where applicable.</li>
+  <li>Performance tests MUST define workload, concurrency, input size, resource limits, environment, baseline, acceptance threshold, and regression budget before execution.</li>
+  <li>Burn-in MUST include sustained load, restart behavior, failover, dependency outage, resource exhaustion, upgrade, downgrade, rollback, and observability validation.</li>
+  <li>Fuzzing and property testing SHOULD be applied to parsers, serialization, protocol handlers, configuration loaders, and cross-language boundaries.</li>
+</ul>
+<p>A release candidate that fails burn-in MUST NOT proceed until the failure is explained, fixed or waived, retested, and signed off by Verification and Operations.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-production-operations">
+<h2>10. Production Operations and Upgrade Discipline</h2>
+<p>Production operation MUST preserve service continuity, auditability, and incident response readiness. Production environments MUST reject artifacts that lack approved provenance, SBOM, release record, compatibility record when required, and configuration fingerprint.</p>
+<ul>
+  <li>Deployments MUST use canary, rolling, blue-green, partitioned, or hot-code strategies unless an approved maintenance-window exception exists.</li>
+  <li>Release automation MUST verify artifact digest, environment, configuration schema, migration preconditions, and rollback preconditions before changing production state.</li>
+  <li>Runbooks MUST include normal operation, degraded operation, emergency rollback, downgrade constraints, data repair steps, contact paths, and decision authorities.</li>
+  <li>Monitoring MUST include service health, saturation, error budget, dependency health, version skew, configuration drift, queue depth, latency, throughput, and rollback signals.</li>
+  <li>Incident reports MUST link deployed artifact, configuration fingerprint, change record, telemetry, mitigation, root cause, corrective action, and follow-up verification.</li>
+</ul>
+<p>Production exceptions MUST be time-bounded, owner-assigned, and reviewed after resolution. A repeated exception is evidence that the policy, system design, or operating model needs a formal change.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-security-supply-chain">
+<h2>11. Security and Supply Chain Controls</h2>
+<p>Covered systems MUST implement secure software development and supply-chain controls proportionate to critical-resource impact. The default baseline is secure SDLC evidence, dependency integrity, vulnerability management, artifact signing, SBOM publication, provenance, and least-privilege automation.</p>
+<ul>
+  <li>Source changes MUST be reviewed and traceable to an approved work item. Direct production edits are prohibited.</li>
+  <li>Build systems MUST run from pinned and attestable builders. Build scripts MUST fail closed on unsigned, unknown, or mutable dependency inputs.</li>
+  <li>Generated artifacts MUST be signed or otherwise integrity-protected. Release records MUST store artifact digest, provenance, SBOM, and vulnerability scan result.</li>
+  <li>Dependency updates MUST include compatibility review, license review, vulnerability review, and regression evidence.</li>
+  <li>Secrets MUST be stored in approved secret systems and accessed through least-privilege identities. Secrets MUST NOT appear in source, tests, logs, traces, artifacts, screenshots, or agent prompts.</li>
+  <li>LLM agents MUST NOT receive secrets, production credentials, customer data, or non-redacted incident artifacts unless explicitly approved for that environment and task.</li>
+</ul>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-llm-agent-policy">
+<h2>12. LLM Agent Operating Policy</h2>
+<p>Every repository that permits LLM-agent changes MUST contain a root AGENTS.md file. Monorepos MAY contain nested AGENTS.md files; the nearest file to the changed path controls local instructions, and a nested file MAY strengthen but MUST NOT weaken the root policy.</p>
+<ul>
+  <li>Agents MUST obey task scope, repository instructions, protected-file rules, security restrictions, and lifecycle gate requirements.</li>
+  <li>Agents MUST NOT alter public API/ABI contracts, dependency pins, build provenance, release automation, production configuration, security controls, or migration behavior without an explicit human-approved Design Decision Notice or Compatibility Change Record.</li>
+  <li>Agents MUST prefer minimal, reviewable diffs and MUST update documentation, tests, and evidence alongside code.</li>
+  <li>Agents MUST run or name the required validation commands. When a command cannot be run, the agent MUST state why and identify the residual risk.</li>
+  <li>Agents MUST produce a final change summary that lists files changed, tests run, policy-sensitive areas touched, compatibility impact, security impact, and remaining risks.</li>
+  <li>Agents MUST stop and request human review when requirements conflict, scope expands, protected files must change, secrets appear, evidence cannot be produced, or production-impacting behavior is ambiguous.</li>
+</ul>
+<p>The companion AGENTS.md file generated with this policy is the default optimized template. Teams SHOULD copy it to repository root and replace placeholders before enabling agent-authored changes.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-audit-enforcement">
+<h2>13. Audit, Enforcement, and Exceptions</h2>
+<p>Policy compliance MUST be enforced through code review, CI/CD gates, release approval, production admission control, periodic audit, and incident review. Evidence gaps are compliance failures even when the system appears to work.</p>
+<ul>
+  <li>Each repository MUST maintain a policy evidence index that links gate records, ADRs, DDNs, CCRs, test reports, release records, SBOMs, and exceptions.</li>
+  <li>Exceptions MUST name owner, affected control, reason, scope, compensating control, expiry date, and required remediation. Open-ended exceptions are prohibited.</li>
+  <li>Architecture, Security, Verification, and Operations MUST review exception patterns at least once per release train or quarterly, whichever occurs first.</li>
+  <li>A production incident caused by missing evidence, unpinned dependency, hardcoded variable data, undocumented contract change, or untested upgrade path MUST trigger corrective action before the next release train.</li>
+</ul>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-appendix-a">
+<h2>Appendix A. Minimum Repository Structure</h2>
+<pre>/
+  AGENTS.md
+  README.md
+  docs/
+    adr/
+    ddn/
+    ccr/
+    per/
+    runbooks/
+  config/
+    schemas/
+    examples/
+  templates/
+  src/
+  tests/
+    unit/
+    integration/
+    contract/
+    compatibility/
+    performance/
+  ci/
+  release/
+    sbom/
+    provenance/
+    records/
+  tools/</pre>
+<p>A repository MAY use a different physical layout when legacy constraints require it, but MUST preserve equivalent discoverability and links from AGENTS.md and the evidence index.</p>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-appendix-b">
+<h2>Appendix B. Required Record Templates</h2>
+<ul>
+  <li>ADR: title, status, context, decision, alternatives considered, consequences, compatibility impact, security impact, references, owners.</li>
+  <li>DDN: requested change, original scope, changed scope, affected code and contracts, retrofit options, migration plan, backout plan, estimated time, actual time, variance, approvals.</li>
+  <li>CCR: public interface affected, change class, compatibility tests, deprecation start, N-cycle removal target, migration guide, adoption telemetry, removal approval.</li>
+  <li>PER: workload, tool versions, environment, baseline, target, results, saturation points, regression explanation, approval.</li>
+  <li>Release Record: commit, artifact digest, SBOM, provenance, toolchain, dependency locks, configuration fingerprint, tests, deployment strategy, rollback evidence, approvals.</li>
+</ul>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+<section id="sec-references">
+<h2>References</h2>
+<ol>
+<li id="ref-R01"><strong>R01</strong>. NIST SP 800-218 Secure Software Development Framework (SSDF), final public draft / publication page: <a href="https://csrc.nist.gov/Projects/ssdf">https://csrc.nist.gov/Projects/ssdf</a></li>
+<li id="ref-R02"><strong>R02</strong>. SLSA v1.2 specification: supply-chain levels for software artifacts: <a href="https://slsa.dev/spec/v1.2/">https://slsa.dev/spec/v1.2/</a></li>
+<li id="ref-R03"><strong>R03</strong>. SPDX specifications and ISO/IEC 5962:2021 reference: <a href="https://spdx.dev/use/specifications/">https://spdx.dev/use/specifications/</a></li>
+<li id="ref-R04"><strong>R04</strong>. CycloneDX official specification site: <a href="https://cyclonedx.org/specification/overview/">https://cyclonedx.org/specification/overview/</a></li>
+<li id="ref-R05"><strong>R05</strong>. Python PEP 8 style guide: <a href="https://peps.python.org/pep-0008/">https://peps.python.org/pep-0008/</a></li>
+<li id="ref-R06"><strong>R06</strong>. Python PEP 257 docstring conventions: <a href="https://peps.python.org/pep-0257/">https://peps.python.org/pep-0257/</a></li>
+<li id="ref-R07"><strong>R07</strong>. Python PEP 387 backward compatibility policy: <a href="https://peps.python.org/pep-0387/">https://peps.python.org/pep-0387/</a></li>
+<li id="ref-R08"><strong>R08</strong>. Python C API stability / Stable ABI documentation: <a href="https://docs.python.org/3/c-api/stable.html">https://docs.python.org/3/c-api/stable.html</a></li>
+<li id="ref-R09"><strong>R09</strong>. PyPA pyproject.toml specification: <a href="https://packaging.python.org/en/latest/specifications/pyproject-toml/">https://packaging.python.org/en/latest/specifications/pyproject-toml/</a></li>
+<li id="ref-R10"><strong>R10</strong>. PyPA version specifiers specification: <a href="https://packaging.python.org/en/latest/specifications/version-specifiers/">https://packaging.python.org/en/latest/specifications/version-specifiers/</a></li>
+<li id="ref-R11"><strong>R11</strong>. Haskell 2010 Language Report: <a href="https://www.haskell.org/onlinereport/haskell2010/">https://www.haskell.org/onlinereport/haskell2010/</a></li>
+<li id="ref-R12"><strong>R12</strong>. GHC 9.14.1 User Guide: <a href="https://ghc.gitlab.haskell.org/ghc/doc/users_guide/9.14.1/">https://ghc.gitlab.haskell.org/ghc/doc/users_guide/9.14.1/</a></li>
+<li id="ref-R13"><strong>R13</strong>. Cabal package description / .cabal file user guide: <a href="https://cabal.readthedocs.io/en/stable/cabal-package-description-file.html">https://cabal.readthedocs.io/en/stable/cabal-package-description-file.html</a></li>
+<li id="ref-R14"><strong>R14</strong>. Haskell Package Versioning Policy (PVP): <a href="https://pvp.haskell.org/">https://pvp.haskell.org/</a></li>
+<li id="ref-R15"><strong>R15</strong>. LLVM Coding Standards: <a href="https://llvm.org/docs/CodingStandards.html">https://llvm.org/docs/CodingStandards.html</a></li>
+<li id="ref-R16"><strong>R16</strong>. LLVM Developer Policy: <a href="https://llvm.org/docs/DeveloperPolicy.html">https://llvm.org/docs/DeveloperPolicy.html</a></li>
+<li id="ref-R17"><strong>R17</strong>. Clang C language support status: <a href="https://clang.llvm.org/c_status.html">https://clang.llvm.org/c_status.html</a></li>
+<li id="ref-R18"><strong>R18</strong>. Clang C++ language support status: <a href="https://clang.llvm.org/cxx_status.html">https://clang.llvm.org/cxx_status.html</a></li>
+<li id="ref-R19"><strong>R19</strong>. ISO WG14 C standards committee official page: <a href="https://www.open-std.org/jtc1/sc22/wg14/">https://www.open-std.org/jtc1/sc22/wg14/</a></li>
+<li id="ref-R20"><strong>R20</strong>. ISO WG21 C++ standards committee official page: <a href="https://isocpp.org/std/the-committee">https://isocpp.org/std/the-committee</a></li>
+<li id="ref-R21"><strong>R21</strong>. C++ Core Guidelines: <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines</a></li>
+<li id="ref-R22"><strong>R22</strong>. Erlang/OTP 29.0.1 Design Principles: <a href="https://www.erlang.org/doc/system/design_principles.html">https://www.erlang.org/doc/system/design_principles.html</a></li>
+<li id="ref-R23"><strong>R23</strong>. Erlang/OTP External Term Format: <a href="https://www.erlang.org/doc/apps/erts/erl_ext_dist.html">https://www.erlang.org/doc/apps/erts/erl_ext_dist.html</a></li>
+<li id="ref-R24"><strong>R24</strong>. Erlang/OTP Release Handling: <a href="https://www.erlang.org/doc/system/release_handling.html">https://www.erlang.org/doc/system/release_handling.html</a></li>
+<li id="ref-R25"><strong>R25</strong>. Erlang/OTP appup cookbook: <a href="https://www.erlang.org/doc/system/appup_cookbook.html">https://www.erlang.org/doc/system/appup_cookbook.html</a></li>
+<li id="ref-R26"><strong>R26</strong>. AGENTS.md open format for coding agents: <a href="https://agents.md/">https://agents.md/</a></li>
+</ol>
+<p><a href="#toc">Back to table of contents</a></p>
+</section>
+</body>
+</html>

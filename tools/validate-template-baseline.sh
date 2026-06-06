@@ -52,7 +52,14 @@ done
 # Agent routing files.
 for path in \
   .structs/agentsys/AGENTS.md .structs/agentsys/AGENT_RULES.md \
-  .structs/agentsys/AGENT_AUGMENTS.md references/REFERENCE_INDEX.md; do
+  .structs/agentsys/AGENT_AUGMENTS.md references/REFERENCE_INDEX.md \
+  .structs/agentsys/profiles \
+  .structs/agentsys/profiles/AGENTS.codex.md \
+  .structs/agentsys/profiles/AGENTS.openai-compat.md \
+  .structs/agentsys/profiles/AGENTS.antigravity.md \
+  .structs/agentsys/profiles/AGENTS.gemini.md \
+  .structs/agentsys/profiles/AGENTS.ollama.md \
+  .structs/agentsys/profiles/AGENTS.other.md; do
   require_path "$path"
 done
 
@@ -75,6 +82,8 @@ done
 
 # Required tools.
 require_executable scripts/validate-template-baseline.sh
+require_executable tools/configure-agent-profile.sh
+require_executable scripts/configure-agent-profile.sh
 require_path tools/validate-evidence-index.py
 
 if [ "$fail" -ne 0 ]; then

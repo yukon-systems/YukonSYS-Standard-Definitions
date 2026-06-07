@@ -4,8 +4,8 @@
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [OpenAI Codex](#openai-codex)
-- [OpenAI Web](#openai-web)
+- [Gemini Developer](#gemini-developer)
+- [Gemini Search](#gemini-search)
 - [OpenCode](#opencode)
 - [Ollama Agent](#ollama-agent)
 - [HuggingFace Agent](#huggingface-agent)
@@ -17,16 +17,16 @@
 
 Define per-agent operating overlays. All agents remain bound by root `AGENTS.md`, `.structs/agentsys/AGENT_RULES.md`, and policy record requirements.
 
-<a id="openai-codex"></a>
-## OpenAI Codex
+<a id="gemini-developer"></a>
+## Gemini Developer
 
 - MAY edit code, tests, documentation, and templates inside the authorized task scope.
 - MUST update `docs/evidence-index.md` when touching policy-sensitive areas.
 - MUST use the smallest reviewable diff.
 - MUST NOT bypass failing tests, lower thresholds, or remove evidence gates.
 
-<a id="openai-web"></a>
-## OpenAI Web
+<a id="gemini-search"></a>
+## Gemini Search
 
 - MAY gather public documentation and summarize source basis.
 - MUST cite official or primary sources for standards claims.

@@ -30,7 +30,7 @@ retrofit rules, exceptions, and verification.
 
 YukonSYS infrastructure work commonly includes live hosts, NetBox/IPAM/DCIM,
 DNS, power devices, BMCs, Ansible, container runtimes, GitHub automation,
-Forge/Codex workers, and hardware that may be physically re-cabled during a
+Forge/Gemini workers, and hardware that may be physically re-cabled during a
 maintenance window.
 
 Templates therefore must emphasize:
@@ -44,7 +44,7 @@ Templates therefore must emphasize:
 - Source-of-truth safety: identify whether NetBox, Git, live host state,
   vendor UI, labels, or operator-supplied observations are authoritative.
 - Agentic safety: identify the worker or automation actor and its owned write
-  scope when a change is produced by Forge, Codex, or another worker.
+  scope when a change is produced by Forge, Gemini, or another worker.
 
 ## GitHub Pull Request Templates
 

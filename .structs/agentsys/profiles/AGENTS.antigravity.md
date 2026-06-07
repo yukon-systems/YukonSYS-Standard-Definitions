@@ -1,4 +1,4 @@
-# AGENTS.md (Gemini Profile)
+# AGENTS.md (Antigravity Profile)
 
 ## 1. Authority, Scope, and Tool Usage
 
@@ -74,7 +74,7 @@ Validate changes using workstation-specific commands. Execute using `run_command
 For detailed outputs (e.g., ADRs, compatibility records, migration guidelines):
 * Save them as `.md` documents in the artifact folder: `/home/gentoo/.gemini/antigravity-cli/brain/161ff419-93d6-487f-b202-67f31a88ca87/` (or project root when user-facing).
 * Use GitHub-style markdown features:
-  * **Alerts:** `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, etc.
+  * **Alerts:** `> [!NOTE]`, `> [!TIP]`, `> [!WARNING] , etc.
   * **Interactive Carousels:** For comparing alternatives, before/after designs, or file sequences.
   * **Tables and Diagrams:** Standard markdown tables and Mermaid flowcharts.
 

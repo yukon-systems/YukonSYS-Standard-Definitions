@@ -72,7 +72,8 @@ Validate changes using workstation-specific commands. Execute using `run_command
 ## 6. Artifact & Reporting Guidelines
 
 For detailed outputs (e.g., ADRs, compatibility records, migration guidelines):
-* Save them as `.md` documents in the artifact folder: `/home/gentoo/.gemini/antigravity-cli/brain/161ff419-93d6-487f-b202-67f31a88ca87/` (or project root when user-facing).
+* Save them as `.md` documents in the artifact folder(s) as defined by the repository's environment variable "ARTIFACT_DIRECTORY".
+* If the "ARTIFACT_DIRECTORY" repository environment variable is not set, the repository checkout directory + "artifacts/" should be created and used (e.g., "repository_checkout_directory_example/artifacts/").
 * Use GitHub-style markdown features:
   * **Alerts:** `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, etc.
   * **Interactive Carousels:** For comparing alternatives, before/after designs, or file sequences.
